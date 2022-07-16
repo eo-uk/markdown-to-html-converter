@@ -26,12 +26,14 @@ HEADERS = {
 }
 response = requests.post(URL, data=json.dumps(body), headers=HEADERS)
 
-with open(path.replace('.md', '.html'), 'w+') as file:
-    file.write(response.text)
-
 if response.ok:
     print(response.text)
+    
+    with open(path.replace('.md', '.html'), 'w+') as file:
+        file.write(response.text)
+        
     print('\n---Operation successful')
 else:
     print('Something went wrong')
+    
 input('Press any key to close')

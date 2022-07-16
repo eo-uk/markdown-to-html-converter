@@ -35,12 +35,12 @@ if response.ok:
             answer = input(
                 'An HTML file with that name already exists, '
                 'do you wish to overwrite this file? (y/n)'
-            )
-            if answer.strip().lower() in ('n', 'no'):
+            ).strip().lower()
+            if answer in ('n', 'no'):
                 print('\n---File was not written.')
                 input('Press any key to close')
                 sys.exit()
-            elif answer.strip().lower() in  ('y', 'yes'):
+            elif answer in ('y', 'yes'):
                 break
             
     with open(path_dest, 'w+') as file:

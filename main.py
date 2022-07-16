@@ -49,5 +49,6 @@ if response.ok:
     print('\n---Operation successful')
 else:
     print('Something went wrong')
+    print(response.status_code)
     
 input('Press any key to close')

@@ -17,19 +17,33 @@ with open(path, 'r') as file:
 
 TOKEN = os.getenv('TOKEN')
 URL = 'https://api.github.com/markdown'
-body = {
-    'text': md_text
-}
 HEADERS = {
     'Accept': 'application/vnd.github+json',
     'Authorization': f'token {TOKEN}'
+}
+body = {
+    'text': md_text
 }
 response = requests.post(URL, data=json.dumps(body), headers=HEADERS)
 
 if response.ok:
     print(response.text)
-    
-    with open(path.replace('.md', '.html'), 'w+') as file:
+
+    path_dest = path.replace('.md', '.html')
+    if os.path.exists(path_dest):
+        while True:
+            answer = input(
+                'An HTML file with that name already exists, '
+                'do you wish to overwrite this file? (y/n)'
+            )
+            if answer.strip().lower() in ('n', 'no'):
+                print('\n---File was not written.')
+                input('Press any key to close')
+                sys.exit()
+            elif answer.strip().lower() in  ('y', 'yes'):
+                break
+            
+    with open(path_dest, 'w+') as file:
         file.write(response.text)
         
     print('\n---Operation successful')
